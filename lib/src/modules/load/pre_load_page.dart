@@ -36,7 +36,11 @@ class _PreLoadPageState extends State<PreLoadPage> {
           if (await getTrucks()) {
             if (await getFuelStations()) {
               if (await getHistorics()) {
-                loginSucess();
+                if (await getPrice()) {
+                  loginSucess();
+                } else {
+                  loginError();
+                }
               } else {
                 loginError();
               }
@@ -128,6 +132,18 @@ class _PreLoadPageState extends State<PreLoadPage> {
     }
   }
 
+  getPrice() async {
+    Map<dynamic, dynamic> response =
+        await serverRepository.getPrice(loginInfos["token"] ?? "");
+    if (response["status"]) {
+      await setPrice(response["price"]["price"]);
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   setInfos(average, lastAverage, kmTraveled, award) async {
     await context.read<AppSettings>().setInfos(average.toString(),
         lastAverage.toString(), kmTraveled.toString(), award.toString());
@@ -143,6 +159,10 @@ class _PreLoadPageState extends State<PreLoadPage> {
 
   setHistorics(List<HistoricModel> historics) async {
     await context.read<AppSettings>().setHistorics(historics);
+  }
+
+  setPrice(double price) async {
+    await context.read<AppSettings>().setPrice(price);
   }
 
   loginSucess() {

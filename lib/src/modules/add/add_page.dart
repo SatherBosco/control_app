@@ -40,11 +40,13 @@ class _AddPageState extends State<AddPage> {
   late UserInfosModel userInfos;
   List<TruckModel> trucks = [];
   List<FuelStationModel> fuelStations = [];
+  double price = 7;
   DateTime date = DateTime.now();
 
   readInfos() {
     loginInfos = context.watch<AppSettings>().loginInfos;
     userInfos = context.watch<AppSettings>().userInfos;
+    price = context.watch<AppSettings>().price;
     if (trucks.isEmpty) {
       trucks = context.watch<AppSettings>().trucks;
       _truck = userInfos.truck;
@@ -422,7 +424,8 @@ class _AddPageState extends State<AddPage> {
                           if (valor == 0 || litros == 0) {
                             return 'Informe o valor';
                           }
-                          if (valor > litros * 7 || valor < litros * 2) {
+                          if (valor > litros * (price * 1.5) ||
+                              valor < litros * (price * 0.5)) {
                             return 'Valor incorreto';
                           }
                           return null;

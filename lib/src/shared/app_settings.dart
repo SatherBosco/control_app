@@ -16,6 +16,7 @@ class AppSettings extends ChangeNotifier {
   List<FuelStationModel> fuelStations = <FuelStationModel>[];
   List<TruckModel> trucks = <TruckModel>[];
   List<HistoricModel> historics = <HistoricModel>[];
+  double price = 7.0;
 
   AppSettings();
 
@@ -84,6 +85,11 @@ class AppSettings extends ChangeNotifier {
 
   setOneHistoric(HistoricModel historic) async {
     historics.add(historic);
+    await _readInfos();
+  }
+
+  setPrice(double newPrice) async {
+    price = newPrice;
     await _readInfos();
   }
 

@@ -91,4 +91,24 @@ class ServerRepository extends ChangeNotifier {
       }
     }
   }
+
+  Future getPrice(String token) async {
+    try {
+      _client.options.headers["authorization"] = "Bearer $token";
+
+      int month = DateTime.now().month;
+      print(month);
+
+      var response = await _client
+          .get('https://api-combustivel.sbgestor.app/price/$month');
+      print(response.data);
+      return {"status": true, "price": response.data["price"]};
+    } on DioError catch (e) {
+      if (e.response != null) {
+        return {"status": false, "message": e.response?.data["message"]};
+      } else {
+        return {"status": false, "message": e.message};
+      }
+    }
+  }
 }
