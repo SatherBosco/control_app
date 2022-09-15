@@ -85,6 +85,7 @@ class _PreLoadPageState extends State<PreLoadPage> {
           truck["average"],
         ));
       }
+      truckList.sort((a, b) => a.licensePlate.compareTo(b.licensePlate));
       await setTrucks(truckList);
 
       return true;
