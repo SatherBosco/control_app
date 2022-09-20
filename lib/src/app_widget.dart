@@ -1,9 +1,9 @@
-// import 'package:control_app/src/repositories/historic_repository.dart'; 123456789
 import 'package:control_app/src/repositories/reset_password_repository.dart';
 import 'package:control_app/src/repositories/server_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:control_app/src/modules/auth/login_repository.dart';
 import 'package:control_app/src/shared/app_settings.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'modules/add/add_page.dart';
 import 'modules/add/add_repository.dart';
@@ -39,6 +39,12 @@ class AppWidget extends StatelessWidget {
           '/home': (context) => const HomePage(),
           '/add': (context) => const AddPage(),
         },
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: const [Locale('pt', 'BR')],
       ),
     );
   }

@@ -85,6 +85,7 @@ class _HomePageState extends State<HomePage> {
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        tooltip: "Adicionar",
         onPressed: () {
           Navigator.of(context).pushNamed('/add');
         },
