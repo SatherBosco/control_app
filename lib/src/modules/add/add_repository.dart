@@ -18,6 +18,8 @@ class AddRepository extends ChangeNotifier {
       valor,
       File odometroImage,
       File notaImage,
+      arlaLiters,
+      arlaPrice,
       String token) async {
     try {
       var formData = FormData.fromMap({
@@ -30,6 +32,8 @@ class AddRepository extends ChangeNotifier {
         'currentOdometerValue': odometro,
         'liters': litros,
         'value': valor,
+        'arlaLiters': arlaLiters,
+        'arlaPrice': arlaPrice,
         'odometer': await MultipartFile.fromFile(odometroImage.path),
         'nota': await MultipartFile.fromFile(notaImage.path)
       });

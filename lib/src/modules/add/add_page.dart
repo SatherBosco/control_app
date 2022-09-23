@@ -29,6 +29,8 @@ class _AddPageState extends State<AddPage> {
   final _odometer = TextEditingController();
   final _liters = TextEditingController();
   final _value = TextEditingController();
+  final _arlaLiters = TextEditingController();
+  final _arlaPrice = TextEditingController();
   String _truck = "";
   String _fuelStation = "";
   File? odometro;
@@ -162,6 +164,18 @@ class _AddPageState extends State<AddPage> {
               0,
           odometro!,
           nota!,
+          _arlaPrice.text.isNotEmpty
+              ? double.tryParse(_arlaLiters.text
+                      .replaceAll(".", "")
+                      .replaceAll(",", ".")) ??
+                  0
+              : 0,
+          _arlaPrice.text.isNotEmpty
+              ? double.tryParse(_arlaPrice.text
+                      .replaceAll(".", "")
+                      .replaceAll(",", ".")) ??
+                  0
+              : 0,
           loginInfos["token"] ?? "");
 
       if (response["status"]) {
@@ -438,6 +452,59 @@ class _AddPageState extends State<AddPage> {
                       ),
                     ),
                   ]),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                  child: Text("Arla (Informar se abastecer)",
+                      style: TextStyle(fontWeight: FontWeight.w900)),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                  child: TextFormField(
+                    enabled: !_isLoading,
+                    controller: _arlaLiters,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Arla - Litros',
+                      prefixIcon: Icon(
+                        Icons.oil_barrel,
+                      ),
+                      suffix: Text(
+                        'Arla - Litros',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LitrosInputFormatter(casasDecimais: 2)
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                  child: TextFormField(
+                    enabled: !_isLoading,
+                    controller: _arlaPrice,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Arla - Valor',
+                      prefixIcon: Icon(
+                        Icons.oil_barrel,
+                      ),
+                      suffix: Text(
+                        'Arla - Valor',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LitrosInputFormatter(casasDecimais: 2)
+                    ],
+                  ),
                 ),
                 Padding(
                   padding:
