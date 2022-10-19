@@ -394,6 +394,15 @@ class _AddPageState extends State<AddPage> {
                           if (valor > valorMax) {
                             return 'Litros incorreto';
                           }
+                          double preco = double.tryParse(_value.text
+                                  .replaceAll(".", "")
+                                  .replaceAll(",", ".")) ??
+                              0;
+                          double precoplitro = preco / valor;
+                          if (precoplitro > price * 1.1 ||
+                              precoplitro < price * 0.9) {
+                            return 'Litros incorreto';
+                          }
                           return null;
                         },
                         keyboardType: TextInputType.number,
@@ -438,8 +447,8 @@ class _AddPageState extends State<AddPage> {
                           if (valor == 0 || litros == 0) {
                             return 'Informe o valor';
                           }
-                          if (valor > litros * (price * 1.5) ||
-                              valor < litros * (price * 0.5)) {
+                          if (valor > litros * (price * 1.1) ||
+                              valor < litros * (price * 0.9)) {
                             return 'Valor incorreto';
                           }
                           return null;
@@ -510,7 +519,7 @@ class _AddPageState extends State<AddPage> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 7),
                   child: DropdownButtonFormField(
-                    iconSize: 20,
+                    iconSize: 15,
                     icon: const Icon(Icons.local_gas_station),
                     decoration: InputDecoration(
                       label: const Text('Posto'),
